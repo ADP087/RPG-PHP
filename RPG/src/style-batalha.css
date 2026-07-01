@@ -1,0 +1,152 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(44, 50, 56);
+}
+
+/*== HEADER ==*/
+header {
+    padding: 20px;
+    min-height: 80px;
+    width: 100%;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    font-size: 1.5rem;
+}
+
+header .form-esolha {
+    width: 100%;
+    gap: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .form-esolha label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header .form-esolha label select {
+    max-width: 100px;
+    font-size: 1.2rem;
+    margin-top: 8px;
+}
+
+header .form-esolha input[type='submit'] {
+    padding: 18px;
+    font-size: 1.3rem;
+    color: white;
+    background-color: orange;
+    border: none;
+    border-radius: 8px;
+}
+
+/*== MAIN ==*/
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+main .container {
+    min-width: 700px;
+    padding: 20px;
+    color: white;
+    background-color: rgb(41, 41, 41);
+    border-radius: 5px;
+}
+
+/*== MAIN - PERSONAGENS ==*/
+main .container .personagens {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .container .personagens h3 {
+    font-size: 3rem;
+    margin-left: 35px;
+}
+
+main .container .personagens .div-personagem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .container .personagens .div-personagem .quadro-img{
+    height: 280px;
+    width: 200px;
+    border: 5px solid black;
+    border-radius: 5px;
+    margin-top: 8px;
+}
+
+main .container .personagens .div-personagem .quadro-img img {
+    height: 280px;
+    width: 200px;
+}
+
+/*== MAIN - CAMPO DE BATALHA ==*/
+main .container .campo-batalha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+}
+
+main .container .campo-batalha .chat-dano {
+    height: 100%;
+    width: 350px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    border: 5px solid black;
+    padding: 5px;
+}
+
+main .container .campo-batalha .acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+main .container .campo-batalha .acoes button {
+    font-size: 1.5rem;
+    padding: 13px;
+    width: 150px;
+    border: none;
+    cursor: pointer;
+}
+
+main .container .campo-batalha .acoes .btn-cura {
+    background-color: rgb(100, 253, 100);
+}
+
+main .container .campo-batalha .acoes .btn-bater {
+    background-color: rgb(255, 166, 0);
+}
+
+main .container .campo-batalha .acoes .btn-defender {
+    background-color: rgb(146, 228, 255);
+}
+
+/*== LINK VOLTAR ==*/
+main .container a {
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    background-color: orange;
+    text-decoration: none;
+}

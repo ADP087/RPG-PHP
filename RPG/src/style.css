@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(44, 50, 56);
+}
+
+.container {
+    background-color: rgb(0, 0, 0);
+    min-height: 500px;
+    min-width: 480px;
+    max-height: 800px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.container h1 {
+    font-size: 3rem;
+}
+
+/*== CADASTRO ==*/
+
+.container .form-cads {
+    font-size: 1.5rem;
+    margin-top: 30px;
+}
+
+.container .form-cads label {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.container .form-cads input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.container .form-cads select {
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.container .form-cads .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .form-cads .links a {
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    background-color: orange;
+    text-decoration: none;
+}
+
+.container .form-cads .links input[type="submit"] {
+    padding: 18px;
+    font-size: 1.3rem;
+    color: white;
+    background-color: blue;
+    border: none;
+}
+
+.container h3 .suc{
+    margin-top: 15px;
+    background-color: lightgreen;
+    color: green;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.container h3 .err{
+    margin-top: 15px;
+    background-color: lightcoral;
+    color: red;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/*== LISTA GUERREIROS ==*/
+.container-tabela {
+    background-color: #000;
+    padding: 25px;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 1.2em;
+}
+
+.container-tabela table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.container-tabela table th,
+.container-tabela table td {
+    border: 1px solid #2f2f2f;
+    padding: 12px 18px;
+    text-align: center;
+}
+
+.container-tabela table th {
+    background-color: #1d1d1d;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.container-tabela table tr:nth-child(even) {
+    background-color: #111;
+}
+
+.container-tabela table tr:nth-child(odd) {
+    background-color: #181818;
+}
+
+.container-tabela table td button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background .2s ease;
+}
+
+.container-tabela table td button img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.container-tabela table td button.edit {
+    background-color: #7c9cd6;
+}
+
+.container-tabela table td button.apaga {
+    background-color: #a85252;
+}
+
+.container-tabela table tr:hover {
+    background-color: #2a2a2a;
+    transition: .2s;
+}
+
+.container-tabela table td button.edit:hover {
+    background-color: #2d6cdf;
+}
+
+.container-tabela table td button.apaga:hover {
+    background-color: #d63c3c;
+}
+
+.container-tabela .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-tabela .links a {
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.container-tabela .links .btn-vol {
+    background-color: orange;
+}
+
+.container-tabela .links .btn-cads {
+    background-color: blue;
+}

@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(44, 50, 56);
+}
+
+.container {
+    background-color: rgb(0, 0, 0);
+    min-height: 300px;
+    min-width: 400px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container h1 {
+    font-size: 3rem;
+}
+
+/*== INDEX ==*/
+.container .links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.container .links a{
+    display: inline-block;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+}
+
+.container .links .btn-cads {
+    background-color: blue;
+}
+
+.container .links .btn-bat {
+    background-color: orange;
+    padding: 18px;
+    font-size: 2rem;
+    position: relative;
+    bottom: 20px;
+}
+
+.container .links .btn-lista{
+    background-color: red;
+}
