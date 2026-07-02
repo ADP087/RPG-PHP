@@ -18,29 +18,35 @@ $resultados = $conn->query($sql);
     <div class="container-tabela">
         <h1>Guerreiros cadastrado:</h1>
 
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Classe</th>
-                <th>Vida</th>
-                <th>Ataque</th>
-                <th>Defesa</th>
-                <th>Botões</th>
-            </tr>
-            <?php
-            foreach($resultados as $usuario) {
-                echo "<tr>";
-                    echo "<td>{$usuario['nome']}</td>";
-                    echo "<td>{$usuario['classe']}</td>";
-                    echo "<td>{$usuario['vida']}</td>";
-                    echo "<td>{$usuario['ataque']}</td>";
-                    echo "<td>{$usuario['defesa']}</td>";
-                    echo "<td><button data-id='{$usuario['id']}' class='edit' title='Editar'><img src='../src/imgs/lapis.png' alt='Editar'></button> 
-                    <button data-id='{$usuario['id']}' class='apaga' title='Excluir'><img src='../src/imgs/lixeira.png' alt='Excluir'></button>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Classe</th>
+                        <th>Vida</th>
+                        <th>Ataque</th>
+                        <th>Defesa</th>
+                        <th>Botões</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($resultados as $usuario) {
+                        echo "<tr>";
+                            echo "<td>{$usuario['nome']}</td>";
+                            echo "<td>{$usuario['classe']}</td>";
+                            echo "<td>{$usuario['vida']}</td>";
+                            echo "<td>{$usuario['ataque']}</td>";
+                            echo "<td>{$usuario['defesa']}</td>";
+                            echo "<td><button data-id='{$usuario['id']}' class='edit' title='Editar'><img src='../src/imgs/lapis.png' alt='Editar'></button> 
+                            <button data-id='{$usuario['id']}' class='apaga' title='Excluir'><img src='../src/imgs/lixeira.png' alt='Excluir'></button>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
         <div class="links">
             <a href="../index.html" class="btn-vol">Voltar</a>

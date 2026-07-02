@@ -16,7 +16,6 @@ body {
     background-color: rgb(0, 0, 0);
     min-height: 500px;
     min-width: 480px;
-    max-height: 800px;
     padding: 20px;
     text-align: center;
     color: white;
@@ -25,7 +24,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    overflow-y: auto;
 }
 
 .container h1 {
@@ -79,7 +77,7 @@ body {
     border: none;
 }
 
-.container h3 .suc{
+.container .suc{
     margin-top: 15px;
     background-color: lightgreen;
     color: green;
@@ -87,7 +85,7 @@ body {
     border-radius: 8px;
 }
 
-.container h3 .err{
+.container .err{
     margin-top: 15px;
     background-color: lightcoral;
     color: red;
@@ -97,7 +95,7 @@ body {
 
 /*== LISTA GUERREIROS ==*/
 .container-tabela {
-    background-color: #000;
+    background-color: rgb(0, 0, 0);
     padding: 25px;
     color: white;
     border-radius: 20px;
@@ -107,26 +105,36 @@ body {
     font-size: 1.2em;
 }
 
+.container-tabela .table-scroll {
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #2f2f2f;
+    border-radius: 5px;
+}
+
 .container-tabela table {
     width: 100%;
     border-collapse: collapse;
     font-size: 1.2rem;
-    overflow: hidden;
-    border-radius: 5px;
     margin-bottom: 15px;
 }
 
-.container-tabela table th,
-.container-tabela table td {
+.table-scroll table thead th {
+    position: sticky;
+    top: 0;
+    background: #000000;
+    z-index: 1;
     border: 1px solid #2f2f2f;
     padding: 12px 18px;
     text-align: center;
+    letter-spacing: 1px;
 }
 
-.container-tabela table th {
-    background-color: #1d1d1d;
-    font-weight: bold;
-    letter-spacing: 1px;
+.container-tabela table tbody td {
+    border: 1px solid #2f2f2f;
+    padding: 12px 18px;
+    text-align: center;
 }
 
 .container-tabela table tr:nth-child(even) {
