@@ -76,7 +76,6 @@ main .container .personagens {
 
 main .container .personagens h3 {
     font-size: 3rem;
-    margin-left: 35px;
 }
 
 main .container .personagens .div-personagem {
@@ -101,7 +100,6 @@ main .container .personagens .div-personagem .quadro-img img {
 /*== MAIN - CAMPO DE BATALHA ==*/
 main .container .campo-batalha {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 300px;
     width: 100%;
@@ -109,11 +107,20 @@ main .container .campo-batalha {
 
 main .container .campo-batalha .chat-dano {
     height: 100%;
-    width: 350px;
+    width: 50%;
     overflow-y: auto; 
     overflow-x: hidden;
     border: 5px solid black;
     padding: 5px;
+}
+
+main .container .campo-batalha .espaco {
+    height: 100%;
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 main .container .campo-batalha .acoes {
@@ -138,7 +145,7 @@ main .container .campo-batalha .acoes .btn-bater {
     background-color: rgb(255, 166, 0);
 }
 
-main .container .campo-batalha .acoes .btn-defender {
+main .container .campo-batalha .acoes .btn-esquivar {
     background-color: rgb(146, 228, 255);
 }
 

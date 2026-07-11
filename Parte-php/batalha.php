@@ -1,9 +1,29 @@
 <?php 
+session_start();
 include("Conexao.php");
 
 $sql = "SELECT * FROM guerreiros";
 $resultados = $conn->query($sql);
 
+function percentualVida(int $vidaAtual, int $vidaMax) : float {
+    if($vidaMax <= 0) {
+        return 0;
+    }
+
+    $p = ($vidaAtual / $vidaMax) * 100;
+    return max(0, min(100, $p));
+}
+
+$emBatalha = isset($_SESSION["player"], $_SESSION["computador"], $_SESSION["vida_player"], $_SESSION["vida_computador"]);
+
+$player = $emBatalha ? $_SESSION["player"] : null;
+$computador = $emBatalha ? $_SESSION["computador"] : null;
+
+$vidaPlayer = $emBatalha ? (int)$_SESSION["vida_player"] : 0;
+$vidaComputador = $emBatalha ? (int)$_SESSION["vida_computador"] : 0;
+
+$vidaMaxPlayer = $emBatalha ? (int)$player["vida_max"] : 0;
+$vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -16,84 +36,69 @@ $resultados = $conn->query($sql);
 </head>
 <body>
     <header>
-        <form method="post" class="form-esolha">
+        <form method="post" class="form-esolha" action="Acoes/iniciarBatalha.php">
             <label>
                 <p>Escolha o guerreiro que deseja ser: </p>
                 <select name="escolha" id="escolha">
-                    <?php
-                    foreach($resultados as $usuario) {
-                        echo "<option value=". $usuario['id'] .">". $usuario['nome'] . "</option>";
-                    }
-                    ?>
+                    <?php foreach ($resultados as $usuario) : ?>
+                        <option value="<?= (int)$usuario['id']?>">
+                            <?= htmlspecialchars($usuario['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </label>
 
-            <input type="submit" name="enviar" value="Batalhar">
+            <input type="submit" name="enviar" value="<?= $emBatalha ? 'Trocar Guerreiro' : 'Batalhar' ?>">
         </form>
     </header>
 
     <main>
-        <?php
-        if(isset($_POST['enviar'])) {
-            // Selecionando o player
-            $playerID = $_POST['escolha'];
-            $sqlPlayer = "SELECT * FROM guerreiros WHERE id = $playerID";
-            $resPlayer = $conn->query($sqlPlayer);
-            $player = $resPlayer->fetch_assoc();
-
-            // Selecionando computador
-            $sqlComp = "SELECT * FROM guerreiros WHERE id != $playerID ORDER BY RAND() LIMIT 1";
-            $resComp = $conn->query($sqlComp);
-            $computador = $resComp->fetch_assoc();
-
-            // VIDA
-            $vida_player = $player["vida"];
-            $vida_computador = $computador["vida"];
-        }
-        ?>
-        
         <div class="container">
             <div class="personagens">
                 <div class="div-personagem">
-                    <?php
-                    if(isset($_POST['enviar'])) {
-                        echo "<h2>Player: {$player['nome']} (HP: $vida_player)</h2>";
-                    } else {
-                    echo "<h2>Player</h2>";
-                    }
-                    ?>
+                    <?php if($emBatalha) : ?>
+                        <h2>Player: <?= htmlspecialchars($player['nome']) ?> (HP: <?= $vidaPlayer ?>)</h2>
+                    <?php else: ?>
+                        <h2>Player</h2>
+                    <?php endif; ?>    
 
                     <div class="quadro-img">
-                        <?php
-                        if(isset($_POST['enviar'])) {
-                            echo "<img src='../src/imgs/{$player['classe']}.png' alt='Personagem do player'>";
-                        }
-                        ?>
+                        <?php if($emBatalha): ?>
+                        <img src="../src/imgs/<?= htmlspecialchars($player['classe']) ?>.png" alt='Personagem do player'>
+                        <?php endif; ?>>
                     </div>
 
-                    <div class="vida"></div>
+                    <div class="vida" id="vida-player">
+                        <?= $emBatalha ? "HP: {$vidaPlayer} / {$vidaMaxPlayer}" : "HP: --" ?>
+                    </div>
+
+                    <div class="barra-vida">
+                        <div class="barra-preenchida" id="barra-player" style="width: <?= $emBatalha ? percentualVida($vidaPlayer, $vidaMaxPlayer) : 0 ?>%"></div>
+                    </div>
                 </div>
 
                 <h3>VS</h3>
 
                 <div class="div-personagem">
-                    <?php
-                    if(isset($_POST['enviar'])) {
-                        echo "<h2>Computador: {$computador['nome']} (HP: $vida_computador)</h2>";
-                    } else {
-                        echo "<h2>Computador</h2>";
-                    }
-                    ?>
+                    <?php if($emBatalha) : ?>
+                        <h2>Computador: <?= htmlspecialchars($computador['nome']) ?> (HP: <?= $vidaComputador ?>)</h2>
+                    <?php else: ?>
+                        <h2>Computador</h2>
+                    <?php endif; ?>    
 
                     <div class="quadro-img">
-                        <?php
-                        if(isset($_POST['enviar'])) {
-                            echo "<img src='../src/imgs/{$computador['classe']}.png' alt='Personagem do computador'>";
-                        }
-                        ?>
+                        <?php if($emBatalha): ?>
+                        <img src="../src/imgs/<?= htmlspecialchars($computador['classe']) ?>.png" alt='Personagem do computador'>
+                        <?php endif; ?>>
                     </div>
 
-                    <div class="vida"></div>
+                    <div class="vida" id="vida-computador">
+                        <?= $emBatalha ? "HP: {$vidaComputador} / {$vidaMaxComputador}" : "HP: --" ?>
+                    </div>
+
+                    <div class="barra-vida">
+                        <div class="barra-preenchida" id="barra-computador" style="width: <?= $emBatalha ? percentualVida($vidaComputador, $vidaMaxComputador) : 0 ?>%"></div>
+                    </div>
                 </div>
             </div>
 
@@ -102,65 +107,19 @@ $resultados = $conn->query($sql);
 
             <div class="campo-batalha">
                 <div class="chat-dano">
-                <?php
-                if(isset($_POST['enviar'])) {
-                    // Começando jogo
-                    $inicio = rand(1, 2);
-
-                    if($inicio === 1) {
-                        $turno = "player";
-                        echo "<h3>O PLAYER começa!</h3>";
-                    } else {
-                        $turno = "computador";
-                        echo "<h3>O COMPUTADOR começa!</h3>";
-                    }
-
-                    while($vida_player > 0 && $vida_computador > 0) {
-                        if($turno === "player") {
-                            $ataque = rand(0, $player["ataque"]);
-                            $vida_computador -= $ataque;
-
-                            if($vida_computador < 0) $vida_computador = 0;
-
-                            echo "<p><b>{$player['nome']}</b> atacou causando $ataque de dano.</p>";
-                            echo "<p>HP do computador: $vida_computador</p>";
-
-                            if($vida_computador === 0) {
-                                echo "<h2>Computador morreu! PLAYER venceu!</h2>";
-                                break;
-                            }
-
-                            $turno = "computador";
-
-                        } else {
-
-                            $ataque = rand(0, $computador["ataque"]);
-
-                            $vida_player -= $ataque;
-
-                            if($vida_player < 0) $vida_player = 0;
-
-                            echo "<p><b>{$computador['nome']}</b> atacou causando $ataque de dano.</p>";
-                            echo "<p>HP do player: $vida_player</p>";
-
-                            if($vida_player === 0) {
-                                echo "<h2>Player morreu! COMPUTADOR venceu!</h2>";
-                                break;
-                            }
-
-                            $turno = "player";
-                        }
-
-                        echo "<hr>";
-                    }
-                }
-                ?>
+                    <?php if($emBatalha): ?>
+                        <p>A batalha começou, escolha uma das ações:</p>
+                    <?php else: ?>
+                        <p>Escolha um guerreiro e clique em batalhar.</p>
+                    <?php endif; ?>
                 </div>
 
-                <div class="acoes">
-                    <button class="btn-cura">Curar</button>
-                    <button class="btn-bater">Bater</button>
-                    <button class="btn-defender">Defender</button>
+                <div class="espaco">
+                    <div class="acoes">
+                        <button class="btn-cura">Curar</button>
+                        <button class="btn-bater" <?= $emBatalha ? '' : 'disabled' ?>>Bater</button>
+                        <button class="btn-esquivar">Esquivar</button>
+                    </div>
                 </div>
             </div>
 
@@ -171,5 +130,7 @@ $resultados = $conn->query($sql);
         </div>
 
     </main>
+
+    <script src="ajax/batalha.js" defer></script>
 </body>
 </html>
