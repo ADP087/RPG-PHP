@@ -1,8 +1,9 @@
-document.addEventListenner("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const btnReiniciar = document.querySelector(".btn-reinicia")
     const btnBater = document.querySelector(".btn-bater");
     const chat = document.querySelector(".chat-dano");
     const vidaPlayer = document.querySelector("#vida-player");
-    const cidaComputador = document.querySelector("#vida-computador");
+    const vidaComputador = document.querySelector("#vida-computador");
     const barraPlayer = document.querySelector("#barra-player");
     const barraComputador = document.querySelector("#barra-computador");
 
@@ -11,7 +12,7 @@ document.addEventListenner("DOMContentLoaded", () => {
     function atualizarBarra(barra, atual, max) {
         if(!barra || !max || max <= 0) return;
 
-        const procentagem = Math.max(0, Math.min(100, (atual / max) * 100));
+        const porcentagem = Math.max(0, Math.min(100, (atual / max) * 100));
         barra.style.width = porcentagem + "%";
     }
 
@@ -25,7 +26,7 @@ document.addEventListenner("DOMContentLoaded", () => {
         btnBater.disabled = true;
 
         try {
-            const resposta = await fetch("Acoes/btnBater.php", {
+            const resposta = await fetch("Acoes/bater.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -44,7 +45,7 @@ document.addEventListenner("DOMContentLoaded", () => {
             dados.mensagens.forEach((msg) => adicionarMensagem(msg));
 
             if(vidaPlayer) {
-                vidaPlayer.textContente = `HP: ${dados.vidaPlayer} / ${dados.vidaMaxPlayer}`;
+                vidaPlayer.textContent = `HP: ${dados.vidaPlayer} / ${dados.vidaMaxPlayer}`;
             }
 
             if(vidaComputador) {
@@ -63,6 +64,15 @@ document.addEventListenner("DOMContentLoaded", () => {
         } catch(erro) {
             adicionarMensagem("Falha na comunicação com o servidor.");
             btnBater.disabled = false;
+            console.log(erro);
         }
+    });
+
+    btnReiniciar.addEventListener("click", async () => {
+        await fetch("Acoes/reinicia.php", {
+            method: "POST"
+        });
+
+        location.reload();
     });
 });

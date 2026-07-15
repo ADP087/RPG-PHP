@@ -65,7 +65,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
                     <div class="quadro-img">
                         <?php if($emBatalha): ?>
                         <img src="../src/imgs/<?= htmlspecialchars($player['classe']) ?>.png" alt='Personagem do player'>
-                        <?php endif; ?>>
+                        <?php endif; ?>
                     </div>
 
                     <div class="vida" id="vida-player">
@@ -89,7 +89,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
                     <div class="quadro-img">
                         <?php if($emBatalha): ?>
                         <img src="../src/imgs/<?= htmlspecialchars($computador['classe']) ?>.png" alt='Personagem do computador'>
-                        <?php endif; ?>>
+                        <?php endif; ?>
                     </div>
 
                     <div class="vida" id="vida-computador">
@@ -119,6 +119,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
                         <button class="btn-cura">Curar</button>
                         <button class="btn-bater" <?= $emBatalha ? '' : 'disabled' ?>>Bater</button>
                         <button class="btn-esquivar">Esquivar</button>
+                        <button class="btn-reinicia">Reiniciar</button>
                     </div>
                 </div>
             </div>
@@ -131,6 +132,6 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 
     </main>
 
-    <script src="ajax/batalha.js" defer></script>
+    <script src="Ajax/batalha.js" defer></script>
 </body>
 </html>
