@@ -25,19 +25,55 @@ document.addEventListener("DOMContentLoaded", () => {
         chat.appendChild(p);
     }
 
-    btnBater.addEventListener("click", async () => {
-        btnBater.disabled = true; // Evita o usuário clicar várias vezes seguidas antes da resposta do servidor chegar
+    btnCurar.addEventListener("click", async () => {
+        btnCurar.disabled = true;
 
         try {
-            const resposta = await fetch("Acoes/bater.php", {
+            const resposta = await fetch("Acoes/curar.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                 },
-                body: "acao=bater"
+                body: "acao=curar"
             });
 
             const dados = await resposta.json();
+
+            if(!dados.ok) {
+                adicionarMensagem(dados.erro || "Erro ao processar a ação.");
+                btnCurar.disabled = false;
+                return;
+            }
+
+            adicionarMensagem(dados.mensagens);
+
+            if(vidaPlayer) {
+                vidaPlayer.textContent = `HP: ${dados.vidaPlayer} / ${dados.vidaMaxPlayer}`;
+            }
+
+            atualizarBarra(barraPlayer, dados.vidaPlayer, dados.vidaMaxPlayer);
+
+            btnCurar.disabled = false;
+        } catch(erro) {
+            adicionarMensagem("Falha na comunicação com o servidor.");
+            btnCurar.disabled = false;
+            console.log(erro);
+        }
+    });
+
+    btnBater.addEventListener("click", async () => {
+        btnBater.disabled = true; // Evita o usuário clicar várias vezes seguidas antes da resposta do servidor chegar
+
+        try {
+            const resposta = await fetch("Acoes/bater.php", { // Faz uma requisição para esse arquivo
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: "acao=bater" // Cria uma variável que recebe 'bater'
+            });
+
+            const dados = await resposta.json(); // Transforma em uma class as informações enviadas
 
             if(!dados.ok) {
                 adicionarMensagem(dados.erro || "Erro ao processar a ação.");

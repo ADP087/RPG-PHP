@@ -9,6 +9,7 @@ unset($_SESSION["turno"]);
 unset($_SESSION["batalha_ativa"]);
 
 header("Content-Type: aplication/json");
+
 echo json_encode([
     "ok" => true
 ]);

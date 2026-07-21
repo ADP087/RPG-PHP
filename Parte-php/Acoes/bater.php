@@ -102,7 +102,7 @@ echo json_encode([
     "vidaMaxComputador" => (int)$computador["vida_max"],
     "fim" => $fim,
     "vencedor" => $vencedor
-], JSON_UNESCAPED_UNICODE);
+], JSON_UNESCAPED_UNICODE); // Aqui está enviando tudo de forma de texto
 exit;
 
 ?>
