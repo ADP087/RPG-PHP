@@ -46,6 +46,7 @@ $_SESSION["player"] = [
     "nome" => $player["nome"],
     "classe" => $player["classe"],
     "ataque" => (int)$player["ataque"],
+    "defesa" => (int)$player["defesa"],
     "vida_max" => (int)$player["vida"]
 ];
 
@@ -54,6 +55,7 @@ $_SESSION["computador"] = [
     "nome" => $computador["nome"],
     "classe" => $computador["classe"],
     "ataque" => (int)$computador["ataque"],
+    "defesa" => (int)$computador["defesa"],
     "vida_max" => (int)$computador["vida"]
 ];
 

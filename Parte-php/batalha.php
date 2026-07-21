@@ -57,7 +57,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
             <div class="personagens">
                 <div class="div-personagem">
                     <?php if($emBatalha) : ?>
-                        <h2>Player: <?= htmlspecialchars($player['nome']) ?> (HP: <?= $vidaPlayer ?>)</h2>
+                        <h2>Player: <?= htmlspecialchars($player['nome']) ?></h2>
                     <?php else: ?>
                         <h2>Player</h2>
                     <?php endif; ?>    
@@ -81,7 +81,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 
                 <div class="div-personagem">
                     <?php if($emBatalha) : ?>
-                        <h2>Computador: <?= htmlspecialchars($computador['nome']) ?> (HP: <?= $vidaComputador ?>)</h2>
+                        <h2>Computador: <?= htmlspecialchars($computador['nome']) ?></h2>
                     <?php else: ?>
                         <h2>Computador</h2>
                     <?php endif; ?>    
@@ -116,9 +116,9 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 
                 <div class="espaco">
                     <div class="acoes">
-                        <button class="btn-cura">Curar</button>
+                        <button class="btn-cura" <?= $emBatalha ? '' : 'disabled' ?>>Curar</button>
                         <button class="btn-bater" <?= $emBatalha ? '' : 'disabled' ?>>Bater</button>
-                        <button class="btn-esquivar">Esquivar</button>
+                        <button class="btn-esquivar" <?= $emBatalha ? '' : 'disabled' ?>>Esquivar</button>
                         <button class="btn-reinicia">Reiniciar</button>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
             <br>
             <br>
 
-            <a href="../index.html">Voltar</a>
+            <button class="voltar">Voltar</button>
         </div>
 
     </main>

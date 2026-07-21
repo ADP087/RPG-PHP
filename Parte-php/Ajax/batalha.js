@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnReiniciar = document.querySelector(".btn-reinicia")
+    const btnCurar = document.querySelector(".btn-cura");
     const btnBater = document.querySelector(".btn-bater");
+    const btnReiniciar = document.querySelector(".btn-reinicia");
+    const btnVoltar = document.querySelector(".voltar");
+
     const chat = document.querySelector(".chat-dano");
     const vidaPlayer = document.querySelector("#vida-player");
     const vidaComputador = document.querySelector("#vida-computador");
@@ -23,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     btnBater.addEventListener("click", async () => {
-        btnBater.disabled = true;
+        btnBater.disabled = true; // Evita o usuário clicar várias vezes seguidas antes da resposta do servidor chegar
 
         try {
             const resposta = await fetch("Acoes/bater.php", {
@@ -56,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
             atualizarBarra(barraComputador, dados.vidaComputador, dados.vidaMaxComputador);
 
             if(dados.fim) {
+                btnCurar.disabled = true;
                 btnBater.disabled = true;
-                btnBater.textContent = "Batalha encerrada";
             } else {
                 btnBater.disabled = false;
             }
@@ -69,10 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     btnReiniciar.addEventListener("click", async () => {
+        try{
+            const resposta = await fetch("Acoes/reinicia.php", {
+                method: "POST"
+            });
+
+            const dados = await resposta.json();
+
+            if(dados.ok) {
+                location.reload();
+            }
+        } catch(erro) {
+            adicionarMensagem("Erro ao reiniciar batalha");
+        }
+    });
+
+    btnVoltar.addEventListener("click", async () => {
         await fetch("Acoes/reinicia.php", {
             method: "POST"
         });
 
-        location.reload();
+        window.location = "../index.html";
     });
 });

@@ -5,7 +5,7 @@ header("Content-Type: application/json; charset=utf-8");
 if($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
         "ok" => false,
-        "erro" => "Requisição inválida."
+        "erro" => "Requisição inválida.",
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] !== "POST") {
 if(!isset($_SESSION["player"], $_SESSION["computador"])) {
     echo json_encode([
         "ok" => false,
-        "erro" => "Nenhum batalha foi iniciada."
+        "erro" => "Nenhum batalha foi iniciada.",
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -23,7 +23,7 @@ $acao = $_POST["acao"] ?? "";
 if($acao !== "bater") {
     echo json_encode([
         "ok" => false,
-        "erro" => "Ação inválida."
+        "erro" => "Ação inválida.",
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -37,7 +37,7 @@ $vidaComputador = (int)($_SESSION["vida_computador"] ?? 0);
 if($vidaPlayer <= 0 || $vidaComputador <= 0) {
     echo json_encode([
         "ok" => false,
-        "erro" => "A batalha já terminou."
+        "erro" => "A batalha já terminou.",
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -47,14 +47,16 @@ $fim = false;
 $vencedor = null;
 
 // Jogador ataca
-$danoPlayer = rand(0, (int)$player["ataque"]);
-$vidaComputador -= $danoPlayer;
+$danoPlayer = rand((int)($player["ataque"] / 2), (int)$player["ataque"]);
+$danoFinal = max(0, $danoPlayer - (int)((int)$computador["defesa"]) / 2);
+
+$vidaComputador -= $danoFinal;
 
 if($vidaComputador < 0) {
     $vidaComputador = 0;
 }
 
-$mensagens[] = $player["nome"] . " atacou causando " . $danoPlayer . " de dano.";
+$mensagens[] = $player["nome"] . " atacou causando " . $danoFinal . " de dano.";
 
 if($vidaComputador === 0) {
     $mensagens[] = $computador["nome"] . " morreu! " . $player["nome"] . " venceu!";
@@ -62,14 +64,16 @@ if($vidaComputador === 0) {
     $vencedor = "player";
 } else {
     // Computador batendo
-    $danoComp = rand(0, (int)$computador["ataque"]);
-    $vidaPlayer -= $danoComp;
+    $danoComp = rand((int)($computador["ataque"] / 2), (int)$computador["ataque"]);
+    $danoFinal = max(0, $danoComp - (int)((int)$player["defesa"]) / 2);
+
+    $vidaPlayer -= $danoFinal;
 
     if($vidaPlayer < 0) {
         $vidaPlayer = 0;
     }
 
-    $mensagens[] = $computador["nome"] . " atacou causando " . $danoComp . " de dano.";
+    $mensagens[] = $computador["nome"] . " atacou causando " . $danoFinal . " de dano.";
 
     if($vidaPlayer === 0) {
         $mensagens[] = $player["nome"] . " morreu! " . $computador["nome"] . " venceu!";
