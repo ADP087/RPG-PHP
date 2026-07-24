@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnCurar = document.querySelector(".btn-cura");
+    const btnCurar = document.querySelector(".btn-curar");
     const btnBater = document.querySelector(".btn-bater");
-    const btnReiniciar = document.querySelector(".btn-reinicia");
+    const btnReiniciar = document.querySelector(".btn-reiniciar");
     const btnVoltar = document.querySelector(".voltar");
 
     const chat = document.querySelector(".chat-dano");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function adicionarMensagem(texto) {
         const p = document.createElement("p");
         p.textContent = texto;
-        chat.appendChild(p);
+        chat.appendChild(p); 
     }
 
     btnCurar.addEventListener("click", async () => {

@@ -62,9 +62,10 @@ $_SESSION["computador"] = [
 $_SESSION["vida_player"] = (int)$player["vida"];
 $_SESSION["vida_computador"] = (int)$computador["vida"];
 
-// Controle do turno
-$_SESSION["turno"] = "player";
 $_SESSION["batalha_ativa"] = true;
+
+// Controle de turno
+$_SESSION["turno"] = rand(0, 1) ? "player" : "computador";
 
 header("Location: ../batalha.php");
 exit;

@@ -161,7 +161,7 @@ main .container .campo-batalha .acoes button {
     cursor: pointer;
 }
 
-main .container .campo-batalha .acoes .btn-cura {
+main .container .campo-batalha .acoes .btn-curar {
     background-color: rgb(100, 253, 100);
 }
 

@@ -42,7 +42,7 @@ if($vidaPlayer <= 0) {
 if($vidaPlayer >= $player["vida_max"]) {
     echo json_encode([
         "ok" => false,
-        "error" => "A vida do " . $player["nome"] . " já está cheia",
+        "erro" => "A vida do " . $player["nome"] . " já está cheia",
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }

@@ -116,10 +116,10 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 
                 <div class="espaco">
                     <div class="acoes">
-                        <button class="btn-cura" <?= $emBatalha ? '' : 'disabled' ?>>Curar</button>
+                        <button class="btn-curar" <?= $emBatalha ? '' : 'disabled' ?>>Curar</button>
                         <button class="btn-bater" <?= $emBatalha ? '' : 'disabled' ?>>Bater</button>
                         <button class="btn-esquivar" <?= $emBatalha ? '' : 'disabled' ?>>Esquivar</button>
-                        <button class="btn-reinicia">Reiniciar</button>
+                        <button class="btn-reiniciar">Reiniciar</button>
                     </div>
                 </div>
             </div>
@@ -132,6 +132,6 @@ $vidaMaxComputador = $emBatalha ? (int)$computador["vida_max"] : 0;
 
     </main>
 
-    <script src="Ajax/batalha.js" defer></script>
+    <script src="Ajax/decisaoPlayer.js" defer></script>
 </body>
 </html>
